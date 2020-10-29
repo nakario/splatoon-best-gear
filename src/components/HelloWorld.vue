@@ -44,6 +44,13 @@
 
       <v-col class="mb-5" cols="12">
         <h2 class="headline font-weight-bold mb-3">
+          サブ2回使用後メイン回数
+        </h2>
+        <v-data-table :headers="headers" :items="values"></v-data-table>
+      </v-col>
+
+      <v-col class="mb-5" cols="12">
+        <h2 class="headline font-weight-bold mb-3">
           Important Links
         </h2>
 
@@ -88,6 +95,32 @@ export default Vue.extend({
   name: "HelloWorld",
 
   data: () => ({
+    headers: [
+      {
+        text: "メイン効率",
+        value: "main"
+      },
+      {
+        text: "サブ効率",
+        value: "sub"
+      },
+      {
+        text: "回数",
+        value: "repeat"
+      }
+    ],
+    values: [
+      {
+        main: 1.3,
+        sub: 0.3,
+        repeat: 1
+      },
+      {
+        main: 0.5,
+        sub: 1.0,
+        repeat: 2
+      }
+    ],
     ecosystem: [
       {
         text: "vuetify-loader",
