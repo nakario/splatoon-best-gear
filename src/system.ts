@@ -11,3 +11,16 @@ export function mainInkUsePercentage(
   const x = 1 - g * Math.pow(0.033 * ap - 0.00027 * ap * ap, m);
   return base * x;
 }
+
+export type subInkGroup = 1 | 2 | 3 | 4
+
+export function subInkUsePercentage(
+  base: number,
+  abilityPoint: number,
+  group: subInkGroup
+): number {
+  const ap = abilityPoint;
+  const g = [0.4, 0.35, 0.3, 0.2][group-1];
+  const x = 1 - g * (0.033 * ap - 0.00027 * ap * ap);
+  return base * x;
+}
