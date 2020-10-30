@@ -5,7 +5,13 @@
         <h2 class="headline font-weight-bold mb-3">
           ロングブラスターネクロ サブ2回使用後メイン回数
         </h2>
-        <v-data-table :headers="headers" :items="values"></v-data-table>
+        <v-data-table
+          :headers="headers"
+          :items="values"
+          :sort-by="['repeatFloor', 'sum', 'repeat']"
+          :sort-desc="[true, false, true]"
+          multi-sort
+        ></v-data-table>
       </v-col>
     </v-row>
   </v-container>
@@ -36,6 +42,10 @@ export default Vue.extend({
       {
         text: "回数",
         value: "repeat"
+      },
+      {
+        text: "回数（切り捨て）",
+        value: "repeatFloor"
       }
     ],
     values: (() => {
@@ -44,11 +54,13 @@ export default Vue.extend({
         let ink = 100;
         const subUsed = subInkUsePercentage(40, p.sub, 4) * 2;
         ink -= subUsed;
+        const repeat = ink / mainInkUsePercentage(11, p.main, 2);
         vs.push({
           main: p.main,
           sub: p.sub,
           sum: p.main + p.sub,
-          repeat: ink / mainInkUsePercentage(11, p.main, 2)
+          repeat: repeat,
+          repeatFloor: Math.floor(repeat)
         });
       }
       return vs;
