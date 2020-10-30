@@ -90,6 +90,8 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mainInkUsePercentage, subInkUsePercentage } from "@/system";
+import { combinations } from "@/combinations";
 
 export default Vue.extend({
   name: "HelloWorld",
@@ -105,22 +107,29 @@ export default Vue.extend({
         value: "sub"
       },
       {
+        text: "合計",
+        value: "sum"
+      },
+      {
         text: "回数",
         value: "repeat"
       }
     ],
-    values: [
-      {
-        main: 1.3,
-        sub: 0.3,
-        repeat: 1
-      },
-      {
-        main: 0.5,
-        sub: 1.0,
-        repeat: 2
+    values: (() => {
+      const vs = [];
+      for (const p of combinations()) {
+        let ink = 100;
+        const subUsed = subInkUsePercentage(40, p.sub, 4) * 2;
+        ink -= subUsed;
+        vs.push({
+          main: p.main,
+          sub: p.sub,
+          sum: p.main + p.sub,
+          repeat: ink / mainInkUsePercentage(11, p.main, 2)
+        });
       }
-    ],
+      return vs;
+    })(),
     ecosystem: [
       {
         text: "vuetify-loader",
