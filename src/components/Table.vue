@@ -17,7 +17,7 @@ import { mainInkUsePercentage, subInkUsePercentage } from "@/system";
 import { combinations } from "@/combinations";
 
 export default Vue.extend({
-  name: "HelloWorld",
+  name: "Table",
 
   data: () => ({
     headers: [
