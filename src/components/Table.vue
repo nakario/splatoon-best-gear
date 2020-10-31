@@ -38,8 +38,15 @@
         <v-card>
           <v-card-title>事前行動</v-card-title>
           <v-card-text>
-            サブ：1回<br />
-            横振り：2回
+            <p v-for="action in actions" :key="action.text">
+              {{ action.text }}：{{ action.count }}回
+              <v-btn small v-on:click="action.count += 1">
+                <v-icon>mdi-plus</v-icon>
+              </v-btn>
+              <v-btn small v-on:click="action.count = Math.max(0, action.count - 1)">
+                <v-icon>mdi-minus</v-icon>
+              </v-btn>
+            </p>
           </v-card-text>
         </v-card>
       </v-col>
@@ -97,9 +104,9 @@ export default Vue.extend({
     weapons: ["ヴァリアブルローラーフォイル"],
     action: "縦振り",
     actions: [
-      { text: "縦振り", base: 12 },
-      { text: "横振り", base: 8 },
-      { text: "サブ（キューバンボム）", base: 70 }
+      { text: "縦振り", base: 12, count: 0 },
+      { text: "横振り", base: 8, count: 2 },
+      { text: "サブ（キューバンボム）", base: 70, count: 1 }
     ],
     headGear: 1,
     remainingCount: 51,
