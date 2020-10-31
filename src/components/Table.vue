@@ -13,7 +13,7 @@
         </p>
       </v-card-text>
     </v-card>
-    <v-card class="ma-2">
+    <v-card class="flex-grow-1 ma-2">
       <v-card-title>事前行動</v-card-title>
       <v-card-text>
         <p v-for="action in actions" :key="action.text">
@@ -27,7 +27,7 @@
         </p>
       </v-card-text>
     </v-card>
-    <v-card class="text-start ma-2">
+    <v-card class="flex-grow-1 text-start ma-2">
       <v-card-text>
         <v-btn-toggle v-model="headGear" mandatory>
           <v-btn>
