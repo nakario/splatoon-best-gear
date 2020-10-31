@@ -10,12 +10,11 @@
       <v-spacer></v-spacer>
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        href="https://github.com/nakario/splatoon-best-gear"
         target="_blank"
         text
       >
-        <span class="mr-2">共有</span>
-        <v-icon>mdi-share</v-icon>
+        <span class="mr-2">GitHub</span>
       </v-btn>
     </v-app-bar>
 
