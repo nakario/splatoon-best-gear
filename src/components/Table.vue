@@ -19,7 +19,7 @@
       <v-col cols="4">
         <v-card class="text-start">
           <v-card-text>
-            <v-btn-toggle v-model="headGear">
+            <v-btn-toggle v-model="headGear" mandatory>
               <v-btn>
                 なし
               </v-btn>
@@ -33,7 +33,12 @@
             <v-container class="pl-1 pb-0">
               <p class="mt-2 mb-0">残りカウント：{{ remainingCount }}</p>
             </v-container>
-            <v-slider v-model="remainingCount" min="30" max="51"></v-slider>
+            <v-slider
+              v-model="remainingCount"
+              min="30"
+              max="51"
+              :disabled="headGear != 1"
+            ></v-slider>
           </v-card-text>
         </v-card>
       </v-col>
@@ -113,7 +118,7 @@ export default Vue.extend({
     weapons: weapons,
     action: actions[0],
     actions: actions,
-    headGear: 1,
+    headGear: 0,
     remainingCount: 51,
     headers: [
       {
