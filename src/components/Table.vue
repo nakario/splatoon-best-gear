@@ -4,7 +4,12 @@
       <v-col cols="8">
         <v-card>
           <v-card-text>
-            <v-select v-model="weapon" :items="weapons"></v-select>
+            <v-select
+              v-model="weapon"
+              :items="weapons"
+              return-object
+              v-on:change="resetActions(weapon)"
+            ></v-select>
             <p v-for="action in actions" :key="action.text" class="text-start">
               {{ `${action.text}：${action.base}%` }}
             </p>
@@ -40,10 +45,10 @@
           <v-card-text>
             <p v-for="action in actions" :key="action.text">
               {{ action.text }}：{{ action.count }}回
-              <v-btn small v-on:click="action.count += 1">
+              <v-btn small v-on:click="action.increment()">
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
-              <v-btn small v-on:click="action.count = Math.max(0, action.count - 1)">
+              <v-btn small v-on:click="action.decrement()">
                 <v-icon>mdi-minus</v-icon>
               </v-btn>
             </p>
@@ -57,7 +62,11 @@
           <v-card-title>
             <v-row>
               <v-col md="auto">
-                <v-select v-model="action" :items="actions"></v-select>
+                <v-select
+                  v-model="action"
+                  :items="actions"
+                  return-object
+                ></v-select>
               </v-col>
               <v-spacer></v-spacer>
               <v-col md="auto">
@@ -79,12 +88,9 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {
-  mainInkUsePercentage,
-  subInkUsePercentage,
-  lastSpurtPoint
-} from "@/system";
+import { lastSpurtPoint } from "@/system";
 import { combinations } from "@/combinations";
+import { allWeapons, Weapon } from "@/weapon";
 
 interface ColumnItem {
   main: number;
@@ -95,19 +101,18 @@ interface ColumnItem {
   best: boolean;
 }
 
+const weapons = allWeapons();
+const actions = weapons[0].actions();
+
 export default Vue.extend({
   name: "Table",
 
   data: () => ({
     showAll: false,
-    weapon: "ヴァリアブルローラーフォイル",
-    weapons: ["ヴァリアブルローラーフォイル"],
-    action: "縦振り",
-    actions: [
-      { text: "縦振り", base: 12, count: 0 },
-      { text: "横振り", base: 8, count: 2 },
-      { text: "サブ（キューバンボム）", base: 70, count: 1 }
-    ],
+    weapon: weapons[0],
+    weapons: weapons,
+    action: actions[0],
+    actions: actions,
     headGear: 1,
     remainingCount: 51,
     headers: [
@@ -144,11 +149,13 @@ export default Vue.extend({
         } else if (this.headGear == 2) {
           additional = 10;
         }
-        const subUsed = subInkUsePercentage(70, p.sub + additional, 2);
-        ink -= subUsed;
-        const yokoUsed = mainInkUsePercentage(8, p.main + additional, 2) * 2;
-        ink -= yokoUsed;
-        const repeat = ink / mainInkUsePercentage(12, p.main + additional, 2);
+        for (const a of this.actions) {
+          ink -= a.inkUsePercentage(p, additional) * a.count;
+        }
+        if (ink < 0) {
+          continue;
+        }
+        const repeat = ink / this.action.inkUsePercentage(p, additional);
         const repeatFloor = Math.floor(repeat);
         vs.push({
           main: p.main,
@@ -175,7 +182,6 @@ export default Vue.extend({
       let best = undefined;
       for (let i = 0; i < vs.length; i++) {
         if (best != vs[i].repeatFloor) {
-          console.log(i, best, vs[i].repeatFloor);
           best = vs[i].repeatFloor;
           vs[i].best = true;
         }
@@ -189,6 +195,10 @@ export default Vue.extend({
   methods: {
     filtered: function(values: { best: boolean }[]) {
       return this.showAll ? values : values.filter(v => v.best);
+    },
+    resetActions: function(weapon: Weapon) {
+      this.actions = weapon.actions();
+      this.action = this.actions[0];
     }
   }
 });
