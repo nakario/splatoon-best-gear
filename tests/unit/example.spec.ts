@@ -1,16 +1,4 @@
-import { shallowMount } from "@vue/test-utils";
-//import HelloWorld from "@/components/HelloWorld.vue";
 import { mainInkUsePercentage, subInkUsePercentage } from "@/system";
-
-/*describe("HelloWorld.vue", () => {
-  it("renders props.msg when passed", () => {
-    const msg = "new message";
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg }
-    });
-    expect(wrapper.text()).toMatch(msg);
-  });
-});*/
 
 describe("system.ts", () => {
   it("calculates main ink usage", () => {
@@ -34,5 +22,5 @@ describe("system.ts", () => {
     expect(subInkUsePercentage(70, 6, 2)).toBeCloseTo(65.3, 0);
     expect(subInkUsePercentage(55, 30, 3)).toBeCloseTo(42.6, 0);
     expect(subInkUsePercentage(40, 9, 4)).toBeCloseTo(37.7, 0);
-  })
-})
+  });
+});
