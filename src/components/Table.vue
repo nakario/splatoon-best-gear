@@ -1,93 +1,79 @@
 <template>
-  <v-container>
-    <v-row class="text-center">
-      <v-col cols="8">
-        <v-card>
-          <v-card-text>
+  <v-container class="d-flex flex-wrap">
+    <v-card class="flex-grow-1 ma-2">
+      <v-card-text>
+        <v-select
+          v-model="weapon"
+          :items="weapons"
+          return-object
+          v-on:change="resetActions(weapon)"
+        ></v-select>
+        <p v-for="action in actions" :key="action.text" class="text-start">
+          {{ `${action.text}：${action.base}%` }}
+        </p>
+      </v-card-text>
+    </v-card>
+    <v-card class="ma-2">
+      <v-card-title>事前行動</v-card-title>
+      <v-card-text>
+        <p v-for="action in actions" :key="action.text">
+          {{ action.text }}：{{ action.count }}回
+          <v-btn small v-on:click="action.increment()">
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+          <v-btn small v-on:click="action.decrement()">
+            <v-icon>mdi-minus</v-icon>
+          </v-btn>
+        </p>
+      </v-card-text>
+    </v-card>
+    <v-card class="text-start ma-2">
+      <v-card-text>
+        <v-btn-toggle v-model="headGear" mandatory>
+          <v-btn>
+            なし
+          </v-btn>
+          <v-btn>
+            ラストスパート
+          </v-btn>
+          <v-btn>
+            カムバック
+          </v-btn>
+        </v-btn-toggle>
+        <v-container class="pl-1 pb-0">
+          <p class="mt-2 mb-0">残りカウント：{{ remainingCount }}</p>
+        </v-container>
+        <v-slider
+          v-model="remainingCount"
+          min="30"
+          max="51"
+          :disabled="headGear != 1"
+        ></v-slider>
+      </v-card-text>
+    </v-card>
+    <v-card class="flex-grow-1 ma-2">
+      <v-card-title>
+        <v-row>
+          <v-col md="auto">
             <v-select
-              v-model="weapon"
-              :items="weapons"
+              v-model="action"
+              :items="actions"
               return-object
-              v-on:change="resetActions(weapon)"
             ></v-select>
-            <p v-for="action in actions" :key="action.text" class="text-start">
-              {{ `${action.text}：${action.base}%` }}
-            </p>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="4">
-        <v-card class="text-start">
-          <v-card-text>
-            <v-btn-toggle v-model="headGear" mandatory>
-              <v-btn>
-                なし
-              </v-btn>
-              <v-btn>
-                ラストスパート
-              </v-btn>
-              <v-btn>
-                カムバック
-              </v-btn>
-            </v-btn-toggle>
-            <v-container class="pl-1 pb-0">
-              <p class="mt-2 mb-0">残りカウント：{{ remainingCount }}</p>
-            </v-container>
-            <v-slider
-              v-model="remainingCount"
-              min="30"
-              max="51"
-              :disabled="headGear != 1"
-            ></v-slider>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <v-card>
-          <v-card-title>事前行動</v-card-title>
-          <v-card-text>
-            <p v-for="action in actions" :key="action.text">
-              {{ action.text }}：{{ action.count }}回
-              <v-btn small v-on:click="action.increment()">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-              <v-btn small v-on:click="action.decrement()">
-                <v-icon>mdi-minus</v-icon>
-              </v-btn>
-            </p>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row class="text-center">
-      <v-col class="mb-5" cols="12">
-        <v-card>
-          <v-card-title>
-            <v-row>
-              <v-col md="auto">
-                <v-select
-                  v-model="action"
-                  :items="actions"
-                  return-object
-                ></v-select>
-              </v-col>
-              <v-spacer></v-spacer>
-              <v-col md="auto">
-                <v-switch v-model="showAll" label="全件表示"></v-switch>
-              </v-col>
-            </v-row>
-          </v-card-title>
-          <v-card-text>
-            <v-data-table
-              :headers="headers"
-              :items="filtered(values)"
-            ></v-data-table>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+          </v-col>
+          <v-spacer></v-spacer>
+          <v-col md="auto">
+            <v-switch v-model="showAll" label="全件表示"></v-switch>
+          </v-col>
+        </v-row>
+      </v-card-title>
+      <v-card-text>
+        <v-data-table
+          :headers="headers"
+          :items="filtered(values)"
+        ></v-data-table>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
