@@ -8,7 +8,7 @@
           return-object
           v-on:change="resetActions(weapon)"
         ></v-select>
-        <p v-for="action in actions" :key="action.text" class="text-start">
+        <p v-for="action in actions" :key="action.text" class="text-button">
           {{ `${action.text}：${action.base}%` }}
         </p>
       </v-card-text>
@@ -16,15 +16,19 @@
     <v-card class="flex-grow-1 ma-2">
       <v-card-title>事前行動</v-card-title>
       <v-card-text>
-        <p v-for="action in actions" :key="action.text">
-          {{ action.text }}：{{ action.count }}回
-          <v-btn small v-on:click="action.increment()">
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-          <v-btn small v-on:click="action.decrement()">
-            <v-icon>mdi-minus</v-icon>
-          </v-btn>
-        </p>
+        <v-row v-for="action in actions" :key="action.text">
+          <v-col md="auto" class="text-button">
+            {{ action.text }}：{{ action.count }}回
+          </v-col>
+          <v-col md="auto" class="ml-auto text-end">
+            <v-btn small v-on:click="action.increment()">
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+            <v-btn small v-on:click="action.decrement()">
+              <v-icon>mdi-minus</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-card-text>
     </v-card>
     <v-card class="flex-grow-1 text-start ma-2">
