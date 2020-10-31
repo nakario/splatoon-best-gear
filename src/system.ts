@@ -24,3 +24,11 @@ export function subInkUsePercentage(
   const x = 1 - g * (0.033 * ap - 0.00027 * ap * ap);
   return base * x;
 }
+
+export function lastSpurtPoint(remainingCount: number): number {
+  if (remainingCount > 50) return 0;
+  if (remainingCount > 44) return 51 - remainingCount;
+  if (remainingCount > 37) return 52 - remainingCount;
+  if (remainingCount > 30) return 53 - remainingCount;
+  return 24;
+}
