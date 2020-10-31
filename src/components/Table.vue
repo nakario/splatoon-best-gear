@@ -142,7 +142,7 @@ export default Vue.extend({
     values: function() {
       const vs: ColumnItem[] = [];
       for (const p of combinations()) {
-        let ink = 100;
+        let ink = this.weapon.inkCapacity;
         let additional = 0;
         if (this.headGear == 1) {
           additional = lastSpurtPoint(this.remainingCount);
