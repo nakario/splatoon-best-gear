@@ -1,4 +1,4 @@
-# splatoon-ink
+# splatoon-best-gear
 
 ## Project setup
 ```
