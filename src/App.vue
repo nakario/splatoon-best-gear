@@ -2,9 +2,9 @@
   <v-app>
     <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
-        <h2 class="headline font-weight-bold">
+        <h3 class="text-xs-h3 font-weight-bold">
           最適ギア数シミュレーター
-        </h2>
+        </h3>
       </div>
 
       <v-spacer></v-spacer>
