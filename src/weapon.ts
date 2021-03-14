@@ -103,7 +103,7 @@ function l3(): Action[] {
 }
 
 function h3(): Action[] {
-  return [new MainAction("メイン", 5.4, 2)];
+  return [new MainAction("メイン", 6.75, 2)];
 }
 
 // ボトルガイザー
@@ -111,7 +111,7 @@ function h3(): Action[] {
 function bottle(): Action[] {
   return [
     new MainAction("メイン初弾", 2.2, 2),
-    new MainAction("メインオート", 0.9, 2)
+    new MainAction("メインオート", 1.08, 2)
   ];
 }
 
@@ -227,11 +227,11 @@ function nautilus(): Action[] {
 // マニューバー
 
 function maneuver(): Action[] {
-  return [new MainAction("メイン", 0.76, 2), new MainAction("スライド", 9, 2)];
+  return [new MainAction("メイン", 0.722, 2), new MainAction("スライド", 9, 2)];
 }
 
 function sputtery(): Action[] {
-  return [new MainAction("メイン", 0.697, 2), new MainAction("スライド", 5, 2)];
+  return [new MainAction("メイン", 0.662, 2), new MainAction("スライド", 5, 2)];
 }
 
 function dual(): Action[] {

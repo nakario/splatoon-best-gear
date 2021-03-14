@@ -1,5 +1,7 @@
 # splatoon-best-gear
 
+- UPDATE(2021/03/14) ver 5.4.0
+
 ## Project setup
 ```
 yarn install
