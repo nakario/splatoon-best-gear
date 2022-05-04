@@ -118,7 +118,7 @@ function bottle(): Action[] {
 // ローラー
 
 function roller(): Action[] {
-  return [new MainAction("メイン", 9, 2)];
+  return [new MainAction("メイン", 8.55, 2)];
 }
 
 function carbon(): Action[] {
@@ -227,7 +227,7 @@ function nautilus(): Action[] {
 // マニューバー
 
 function maneuver(): Action[] {
-  return [new MainAction("メイン", 0.722, 2), new MainAction("スライド", 9, 2)];
+  return [new MainAction("メイン", 0.722, 2), new MainAction("スライド", 7, 2)];
 }
 
 function sputtery(): Action[] {
