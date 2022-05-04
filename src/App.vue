@@ -9,12 +9,14 @@
 
       <v-spacer></v-spacer>
 
+      <div>v5.5.0</div>
+
       <v-btn
         href="https://github.com/nakario/splatoon-best-gear"
         target="_blank"
         text
       >
-        <span class="mr-2">GitHub</span>
+        <v-icon>mdi-github</v-icon>
       </v-btn>
     </v-app-bar>
 
